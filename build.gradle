@@ -1,0 +1,35 @@
+apply plugin: 'groovy'
+apply from: 'idea.gradle'
+
+jar {
+    baseName = 'gpars-coolest-bits'
+    version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile('org.codehaus.groovy:groovy-all:2.3.7')
+
+    compile "org.codehaus.gpars:gpars:1.2.1"
+    compile 'ch.qos.logback:logback-classic:1.1.2'
+
+    //testing
+    testCompile('org.spockframework:spock-core:0.7-groovy-2.0') {
+        exclude group: 'org.codehaus.groovy', module: 'groovy-all'
+    }
+    testRuntime "cglib:cglib-nodep:3.1"       //for mocking of classes (in addition to interfaces)
+    testRuntime "org.objenesis:objenesis:2.1" //for mocking of classes without default constructor (together with CGLIB)
+
+    testCompile('com.jayway.awaitility:awaitility:1.6.1')
+    testCompile('com.jayway.awaitility:awaitility-groovy:1.6.1')
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}

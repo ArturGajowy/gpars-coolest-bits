@@ -1,0 +1,8 @@
+apply plugin: 'idea'
+
+idea {
+    module {
+        excludeDirs += new File(project.projectDir, '.idea')
+        excludeDirs += new File(project.projectDir, 'logs')
+    }
+}
